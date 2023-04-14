@@ -12,8 +12,6 @@ class CancelledBarChart {
   
   CancelledBarChart(Table flights) {
     
-    
-     
     // row.getString("NY") == "NY", then add to cancelled
     for (TableRow row : flights.rows()) {
       int cancelled = row.getInt("CANCELLED");

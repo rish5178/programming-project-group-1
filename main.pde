@@ -43,6 +43,7 @@ Button page3;
 Input page2_input;
 
 Radio highest_button;
+Radio lowest_button;
 
 Widget[] mainWidgets = new Widget[50];
 PImage[] photos = new PImage[50];
@@ -57,10 +58,11 @@ void setup() {
   page2 = new Button("2", 550, 500);
   page3 = new Button("3", 600, 500);
   
-  highest_button = new Radio(650, 550);
+  highest_button = new Radio(650, 170);
+  lowest_button = new Radio(750, 170);
   cancel_chart = new CancelledBarChart(flights);
   origin_chart = new OriginBarChart(stateCounts, states);
-  pie = new PieChart();
+  pie = new PieChart(flights);
   
   size(1000, 1000);
   PFont stdFont;
@@ -75,27 +77,27 @@ void setup() {
 void draw() {
   if (!clicked) {
     welcomePage.draw();
-  } else {
-  
-  background(#E0E0E0); 
-  
-  page1.draw();
-  page2.draw();
-  page3.draw();
-  pie.draw();
-  highest_button.draw();
- // originBarChart.draw();
-  
-  if (theScreen == ORIGIN_GRAPH) {
-    origin_chart.draw();
-  }
-  else if (theScreen == CANCEL_GRAPH) {
-    cancel_chart.draw();
-    page2_input.draw();
-  }
-  else if (theScreen == FLIGHTS_SCREEN) {
-    // draw function
-  }
+  } 
+  else {
+    background(#E0E0E0); 
+    
+    page1.draw();
+    page2.draw();
+    page3.draw();
+    highest_button.draw();
+    lowest_button.draw();
+   // originBarChart.draw();
+    
+    if (theScreen == ORIGIN_GRAPH) {
+      origin_chart.draw();
+    }
+    else if (theScreen == CANCEL_GRAPH) {
+      cancel_chart.draw();
+      page2_input.draw();
+    }
+    else if (theScreen == FLIGHTS_SCREEN) {
+      pie.draw();
+    }
   }
 }
 
@@ -112,6 +114,10 @@ void keyPressed() {
   } else {
     page2_input.inputText += key;
   }
+  
+  // if key == 'ENTER'
+  //  then... edit the cancel_chart
+  //  cancel_chart.changeState(USERINPUT);
 }
 
 //void keyPressed() {
@@ -131,23 +137,37 @@ void keyPressed() {
 void mousePressed(){
   if (!clicked) {
     clicked = true;
-  } else {
-    // The rest of the code in the previous mousePressed function.
-  
+  } 
+  else {
+    println(mouseX, mouseY);
+    
+    if (page1.getEvent(mouseX, mouseY)) {
+      println("Selected button 1");
+      theScreen = ORIGIN_GRAPH;
+    }
+    else if (page2.getEvent(mouseX, mouseY)) {
+      theScreen = CANCEL_GRAPH;
+    }
+    else if (page3.getEvent(mouseX, mouseY)) {
+      theScreen = FLIGHTS_SCREEN;
+    }
+    else if (page3.getEvent(mouseX, mouseY)) {
+      theScreen = FLIGHTS_SCREEN;
+    }
+    else if (highest_button.getEvent(mouseX, mouseY)) {
+      
+      if (highest_button.highlighted == true)
+      {
+        highest_button.highlighted = false;
+      }
+      else
+      {
+        highest_button.highlighted = true; 
+      }
+      // make some change in the ORIGIN graph, changing the values within that class
+      // origin_chart...
+    }
 
-  
-  println(mouseX, mouseY);
-  
-  if (page1.getEvent(mouseX, mouseY)) {
-    println("Selected button 1");
-    theScreen = ORIGIN_GRAPH;
-  }
-  else if (page2.getEvent(mouseX, mouseY)) {
-    theScreen = CANCEL_GRAPH;
-  }
-  else if (page3.getEvent(mouseX, mouseY)) {
-    theScreen = FLIGHTS_SCREEN;
-  }
 
   }
 

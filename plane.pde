@@ -7,8 +7,8 @@ float yPos;
 
 void setup() {
   size(1000, 1000);
-  airplane = loadImage("white_airplane.png");
-  yPos = height / 2 - airplane.height / 2;
+ // airplane = loadImage("white_airplane.png");
+ // yPos = height / 2 - airplane.height / 2;
 }
 
 void draw() {
@@ -17,12 +17,13 @@ void draw() {
     textSize(24);
     textAlign(CENTER);
     text("Welcome to the Flights Data Visualizer", width / 2, height / 2);
+    text("Group 1", width/2, height/2 + 50);
   }
 
 
 void welcomePage() {
   background(0, 0, 255);
-  image(airplane, xPos, yPos);
+  //image(airplane, xPos, yPos);
   xPos += 2;
   if (xPos > width) {
     xPos = -airplane.width;
